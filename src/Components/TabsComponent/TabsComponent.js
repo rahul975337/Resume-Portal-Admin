@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import projectStorage from "../../firebase";
-import BoxComponent from "../Box/Box";
+import BoxComponent from "../Box/BoxComponent";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -68,32 +68,45 @@ const useStyles = makeStyles((theme) => ({
 function TabsComponent() {
   //
 
-  const [a, setA] = useState([]);
+  const [it, setIt] = useState([]);
   useEffect(() => {
     projectStorage
-      .collection("a")
+      .collection("it")
       // .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) =>
-        setA(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+        setIt(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
       );
   }, []);
-  const [b, setB] = useState([]);
+  const [bank, setBank] = useState([]);
   useEffect(() => {
     projectStorage
-      .collection("b")
+      .collection("bank")
       // .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) =>
-        setB(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+        setBank(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
       );
   }, []);
 
-  const [c, setC] = useState([]);
+  const [insurance, setInsurance] = useState([]);
   useEffect(() => {
     projectStorage
-      .collection("c")
+      .collection("insurance")
       // .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) =>
-        setC(snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() })))
+        setInsurance(
+          snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        )
+      );
+  }, []);
+  const [buisness, setBuisness] = useState([]);
+  useEffect(() => {
+    projectStorage
+      .collection("buisness")
+      // .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setBuisness(
+          snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }))
+        )
       );
   }, []);
   //
@@ -115,45 +128,75 @@ function TabsComponent() {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        <Tab label="DEP A" {...a11yProps(0)} />
-        <Tab label="DEP B" {...a11yProps(1)} />
-        <Tab label="DEP C" {...a11yProps(2)} />
+        <Tab label="IT Software" {...a11yProps(0)} />
+        <Tab label="Banking" {...a11yProps(1)} />
+        <Tab label="Insurance" {...a11yProps(2)} />
+        <Tab label="Buisness" {...a11yProps(3)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <div className={classes.tabPanel}>
-          {a.map((user) => (
+          {it.map((user) => (
             <BoxComponent
               key={user.id}
-              name={user.data.file}
+              name={user.data.name}
               phone={user.data.phone}
               email={user.data.email}
-              image={user.data.image}
+              company={user.data.company}
+              designation={user.data.designation}
+              department={user.data.department}
+              resume={user.data.resume}
+              pic={user.data.pic}
             />
           ))}
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className={classes.tabPanel}>
-          {b.map((user) => (
+          {bank.map((user) => (
             <BoxComponent
               key={user.id}
-              name={user.data.file}
+              name={user.data.name}
               phone={user.data.phone}
               email={user.data.email}
-              image={user.data.image}
+              company={user.data.company}
+              designation={user.data.designation}
+              department={user.data.department}
+              resume={user.data.resume}
+              pic={user.data.pic}
             />
           ))}
         </div>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <div className={classes.tabPanel}>
-          {c.map((user) => (
+          {insurance.map((user) => (
             <BoxComponent
               key={user.id}
-              name={user.data.file}
+              name={user.data.name}
               phone={user.data.phone}
               email={user.data.email}
-              image={user.data.image}
+              company={user.data.company}
+              designation={user.data.designation}
+              department={user.data.department}
+              resume={user.data.resume}
+              pic={user.data.pic}
+            />
+          ))}
+        </div>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <div className={classes.tabPanel}>
+          {buisness.map((user) => (
+            <BoxComponent
+              key={user.id}
+              name={user.data.name}
+              phone={user.data.phone}
+              email={user.data.email}
+              company={user.data.company}
+              designation={user.data.designation}
+              department={user.data.department}
+              resume={user.data.resume}
+              pic={user.data.pic}
             />
           ))}
         </div>
